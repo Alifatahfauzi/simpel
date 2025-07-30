@@ -1,4 +1,3 @@
-// Animation control and management
 document.addEventListener('DOMContentLoaded', function () {
     initScrollAnimations();
     initHoverAnimations();
@@ -6,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initInteractiveElements();
 });
 
-// Scroll-based animations
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
@@ -19,8 +17,6 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('in-view');
-
-                // Add stagger effect for grouped elements
                 if (entry.target.parentElement.classList.contains('stagger-container')) {
                     const siblings = Array.from(entry.target.parentElement.children);
                     const index = siblings.indexOf(entry.target);
@@ -34,12 +30,10 @@ function initScrollAnimations() {
         animationObserver.observe(element);
     });
 
-    // Add animation classes to specific elements
     addAnimationClasses();
 }
 
 function addAnimationClasses() {
-    // Hero section animations
     const heroTitle = document.querySelector('.hero-title');
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroDescription = document.querySelector('.hero-description');
@@ -64,25 +58,21 @@ function addAnimationClasses() {
         heroVisual.style.animationDelay = '0.8s';
     }
 
-    // Stats animations
     document.querySelectorAll('.stat-item').forEach((stat, index) => {
         stat.classList.add('animate-on-scroll', 'scale-up');
         stat.style.animationDelay = `${index * 0.2}s`;
     });
 
-    // Skills animations
     document.querySelectorAll('.skill-category').forEach((category, index) => {
         category.classList.add('animate-on-scroll', 'slide-up');
         category.style.animationDelay = `${index * 0.15}s`;
     });
 
-    // Project cards animations
     document.querySelectorAll('.project-card').forEach((card, index) => {
         card.classList.add('animate-on-scroll', 'fade-in-up');
         card.style.animationDelay = `${index * 0.2}s`;
     });
 
-    // Contact section animations
     const contactInfo = document.querySelector('.contact-info');
     const contactForm = document.querySelector('.contact-form');
 
@@ -95,9 +85,7 @@ function addAnimationClasses() {
     }
 }
 
-// Hover animations
 function initHoverAnimations() {
-    // Project cards hover effect
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-15px) rotateX(5deg)';
@@ -110,7 +98,6 @@ function initHoverAnimations() {
         });
     });
 
-    // Skill tags hover effect
     document.querySelectorAll('.skill-tag').forEach(tag => {
         tag.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-3px) scale(1.05)';
@@ -123,7 +110,6 @@ function initHoverAnimations() {
         });
     });
 
-    // Button hover animations
     document.querySelectorAll('.btn').forEach(btn => {
         btn.addEventListener('mouseenter', function () {
             if (this.classList.contains('glow-btn')) {
@@ -140,7 +126,6 @@ function initHoverAnimations() {
         });
     });
 
-    // Social links hover animation
     document.querySelectorAll('.social-link').forEach(link => {
         link.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-5px) rotate(5deg) scale(1.1)';
@@ -154,13 +139,10 @@ function initHoverAnimations() {
     });
 }
 
-// Loading animations
 function initLoadingAnimations() {
-    // Page load animation
     window.addEventListener('load', function () {
         document.body.classList.add('page-loaded');
 
-        // Animate elements in sequence
         setTimeout(() => {
             document.querySelector('.top-navbar')?.classList.add('slide-down');
         }, 100);
@@ -170,7 +152,6 @@ function initLoadingAnimations() {
         }, 300);
     });
 
-    // Preloader (if needed)
     const preloader = document.querySelector('.preloader');
     if (preloader) {
         window.addEventListener('load', function () {
@@ -182,9 +163,7 @@ function initLoadingAnimations() {
     }
 }
 
-// Interactive elements
 function initInteractiveElements() {
-    // Code block animation
     const codeLines = document.querySelectorAll('.code-line');
     codeLines.forEach((line, index) => {
         line.style.opacity = '0';
@@ -198,7 +177,6 @@ function initInteractiveElements() {
         }, 1000 + (index * 200));
     });
 
-    // Parallax effect for hero section
     window.addEventListener('scroll', function () {
         const scrolled = window.pageYOffset;
         const heroVisual = document.querySelector('.hero-visual');
@@ -214,7 +192,6 @@ function initInteractiveElements() {
         });
     });
 
-    // Mouse move parallax for hero section
     document.addEventListener('mousemove', function (e) {
         const heroSection = document.querySelector('.hero-section');
         if (!heroSection) return;
@@ -232,10 +209,8 @@ function initInteractiveElements() {
         }
     });
 
-    // Text reveal animation
     initTextRevealAnimation();
 
-    // Floating animation for particles
     animateFloatingElements();
 }
 
@@ -255,7 +230,6 @@ function initTextRevealAnimation() {
             element.appendChild(span);
         });
 
-        // Trigger animation when element is in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -285,14 +259,11 @@ function animateFloatingElements() {
     });
 }
 
-// Performance optimization
 function optimizeAnimations() {
-    // Reduce animations on low-end devices
     if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
         document.documentElement.style.setProperty('--animation-duration', '0.1s');
     }
 
-    // Pause animations when tab is not visible
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
             document.body.classList.add('animations-paused');
@@ -302,10 +273,8 @@ function optimizeAnimations() {
     });
 }
 
-// Initialize optimization
 optimizeAnimations();
 
-// Add animation utility styles
 const animationStyles = document.createElement('style');
 animationStyles.textContent = `
     .page-loaded {
@@ -341,7 +310,6 @@ animationStyles.textContent = `
         }
     }
     
-    /* Enhanced entrance animations */
     .fade-in {
         animation: fadeIn 1s ease-out;
     }
@@ -372,12 +340,10 @@ animationStyles.textContent = `
         }
     }
     
-    /* Stagger animations */
     .stagger-container .animate-on-scroll {
         animation-delay: var(--stagger-delay, 0s);
     }
     
-    /* Responsive animation adjustments */
     @media (max-width: 768px) {
         .animate-on-scroll {
             animation-duration: 0.6s;
